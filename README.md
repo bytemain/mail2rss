@@ -3,6 +3,9 @@
 低成本的邮件转 RSS 做法。
 使用 [cloudflare workers](https://dash.cloudflare.com/) 和 [testmail.app](https://testmail.app/)。
 
+cloudflare workers 每天免费请求量 100,000 次。  
+testmail.app 免费版每个月可以接收 100 封邮件，邮件内容可以保存一天。
+
 ## 如何使用
 
 将 [mailrss.js](mail2rss.js) 的内容复制到 cloudflare workers 中，填好前面几行的内容即可。
@@ -18,13 +21,13 @@ deploy 到 workers 之后，你可以用 `{namespace}.{tag}@inbox.testmail.app` 
 
 假如我的 namespace 是 diyyy，那我就可以用 `diyyy.quartz@inbox.testmail.app` 这个邮箱来订阅 Quartz，然后订阅 `https://xxx.xxx.workers.dev/quartz` 即可。
 
-记得将需要的 tag 添加到第一行 `allowedTags` 里。
-记得将需要的 tag 添加到第一行 `allowedTags` 里。
-记得将需要的 tag 添加到第一行 `allowedTags` 里。
+记得将需要的 tag 添加到第一行 `allowedTags` 里。  
+记得将需要的 tag 添加到第一行 `allowedTags` 里。  
+记得将需要的 tag 添加到第一行 `allowedTags` 里。  
 
 ## 注册 testmail.app
 
-testmail 能帮我们接收邮件，免费版每个月可以接收 100 封邮件，邮件可以保存一天。
+testmail 能帮我们接收邮件，免费版每个月可以接收 100 封邮件，邮件内容可以保存一天。
 
 每个人注册后会获取专属的 namespace，通过 namespace 可以构造不同的邮件地址。
 
