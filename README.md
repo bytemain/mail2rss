@@ -1,7 +1,7 @@
 # mail2rss
 
 低成本的邮件转 RSS 做法。
-使用 [cloudflare workers](https://dash.cloudflare.com/) 和 [testmail.app](https://testmail.app/)。
+使用 [cloudflare workers](https://workers.cloudflare.com/) 和 [testmail.app](https://testmail.app/)。
 
 cloudflare workers 每天免费请求量 100,000 次。  
 testmail.app 免费版每个月可以接收 100 封邮件，邮件内容可以保存一天。
@@ -40,3 +40,11 @@ testmail 提供了很丰富的 api，获取邮件包括过滤 tag，匹配 tag �
 官方文档在这儿：<https://testmail.app/docs/>
 
 注册登录后，在 <https://testmail.app/console> 可以看到自己的 namespace 和 api keys，这两个都是我们需要的。
+
+## 部署到 Cloudflare Workers
+
+首先你要有 cloudflare 的帐号。然后复制代码到 Cloudflare Workers 的代码编辑器中，修改相应信息即可。
+
+详细教程没有，可参考 [简易部署教程：Cloudflare-Workers](https://github.com/SeaHOH/GotoX/wiki/%E7%AE%80%E6%98%93%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B%EF%BC%9ACloudflare-Workers)。
+
+就只是复制代码过去而已。
