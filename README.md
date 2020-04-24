@@ -2,11 +2,13 @@
 
 English version goes [here](README_EN.md).
 ___
-低成本的邮件转 RSS 做法。
+0 成本的邮件转 RSS 做法。
 使用 [cloudflare workers](https://workers.cloudflare.com/) 和 [testmail.app](https://testmail.app/)。
 
 cloudflare workers 每天免费请求量 100,000 次。  
-testmail.app 免费版每个月可以接收 100 封邮件，邮件内容可以保存一天。
+testmail.app 免费版每个月可以接收 100 封邮件，邮件可以保存一天。
+
+也就是说，只要你的RSS阅读器请求频率小于一天，你都能毫无遗漏的接收每一封邮件。
 
 ## 如何使用
 

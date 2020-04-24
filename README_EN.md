@@ -1,11 +1,13 @@
 # mail2rss
 
 ___
-Low cost practice to convert newsletter to RSS.
+0 cost practice to convert newsletter to RSS.
 using [cloudflare workers](https://workers.cloudflare.com/) and [testmail.app](https://testmail.app/)。
 
 cloudflare workers has 100,000 free requests per day。  
-testmail.app's free version can receive 100 emails per month, and the content can be saved for one day。
+testmail.app's free version can receive 100 emails per month, and the mail can be saved for one day。
+
+that's to say, if your rss reader fetch frequency less than one day, then you can recieve every mail exactly.
 
 ## How to start
 
