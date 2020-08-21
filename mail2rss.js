@@ -57,6 +57,7 @@ addEventListener("fetch", (event) => {
 async function handleRequest(event) {
   const { request } = event;
   let url = new URL(request.url);
+  // parse tag
   const requestTag = url.pathname.substring(1);
   if (!allowedTags.includes(requestTag)) {
     return new Response("Unknown tag.", { status: 403 });
@@ -74,8 +75,7 @@ async function handleRequest(event) {
       "content-type": "application/xml; charset=utf-8",
     },
   });
-  response.headers.append("Cache-Control", "max-age=300");
-
+  response.headers.append("Cache-Control", "max-age=600");
   return response;
 }
 
@@ -102,6 +102,7 @@ async function makeRss(emails, tag) {
   let items = emails.map((value) => {
     if (value.attachments.length > 0) {
       for (let i of value.attachments) {
+        // update the image link
         value.html = value.html.replace(`cid:${i.cid}`, i.downloadUrl);
       }
     }
