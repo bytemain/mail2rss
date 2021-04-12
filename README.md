@@ -15,6 +15,7 @@ testmail.app 免费版每个月可以接收 100 封邮件，邮件可以保存�
 将 [mailrss.js](mail2rss.js) 的内容复制到 cloudflare workers 的代码中，填好前面几行的内容，部署即可。
 
 ```js
+const allowAnyTag = true; // 允许任意的 tag
 const allowedTags = ["quartz"]; // 允许请求的 tag
 const testmailNamespace = "xxxxx"; // testmail 的 namespace
 const testmailToken = "xxxxxxxxxxxxxxx"; // testmail 的 api key
@@ -25,9 +26,7 @@ deploy 到 workers 之后，你可以用 `{namespace}.{tag}@inbox.testmail.app` 
 
 假如我的 namespace 是 diyyy，那我就可以用 `diyyy.quartz@inbox.testmail.app` 这个邮箱来订阅 Quartz，然后订阅 `https://xxx.xxx.workers.dev/quartz` 即可。
 
-记得将需要的 tag 添加到第一行 `allowedTags` 里。  
-记得将需要的 tag 添加到第一行 `allowedTags` 里。  
-记得将需要的 tag 添加到第一行 `allowedTags` 里。  
+如果你希望设置一个 tag 白名单，那就设置 `allowAnyTag` 为 `false`，将需要的 tag 添加到第二行 `allowedTags` 里。  
 
 ## 注册 testmail.app
 

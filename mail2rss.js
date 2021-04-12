@@ -1,3 +1,4 @@
+const allowAnyTag = true;
 const allowedTags = ["quartz"];
 const testmailNamespace = "xxxxx";
 const testmailToken = "xxxxxxxxxxxxxxx";
@@ -59,7 +60,7 @@ async function handleRequest(event) {
   let url = new URL(request.url);
   // parse tag
   const requestTag = url.pathname.substring(1);
-  if (!allowedTags.includes(requestTag)) {
+  if (!allowAnyTag && !allowedTags.includes(requestTag)) {
     return new Response("Unknown tag.", { status: 403 });
   }
 

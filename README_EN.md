@@ -14,6 +14,7 @@ that's to say, if your rss reader fetch frequency less than one day, then you ca
 copy the content of [mailrss.js](mail2rss.js) into cloudflare workers，and just fill in the first few lines。
 
 ```js
+const allowAnyTag = true; // allow any tag
 const allowedTags = ["quartz"]; // allowed tags
 const testmailNamespace = "xxxxx"; // testmail's namespace
 const testmailToken = "xxxxxxxxxxxxxxx"; // testmail's api key
@@ -24,9 +25,7 @@ after deployed to workers，you can use `{namespace}.{tag}@inbox.testmail.app` t
 
 Suppose my namespace is diyyy，then I can use `diyyy.quartz@inbox.testmail.app` to subscribe _Quartz_'s newsletter，then subscibe this link `https://xxx.xxx.workers.dev/quartz`。
 
-Please remember to add the allowed tags to the first line(`allowedTags`)  
-Please remember to add the allowed tags to the first line(`allowedTags`)  
-Please remember to add the allowed tags to the first line(`allowedTags`)  
+if you want use allowedlist mode, you need to set `allowAnyTag` to `false`，and add the allowed tags to the first line(`allowedTags`)  
 
 ## sign up testmail.app
 
