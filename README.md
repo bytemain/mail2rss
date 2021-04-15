@@ -16,7 +16,7 @@ testmail.app 免费版每个月可以接收 100 封邮件，邮件可以保存�
 
 ```js
 const allowAnyTag = true; // 允许任意的 tag
-const allowedTags = ["quartz"]; // 允许请求的 tag
+const allowedTags = ["quartz"]; // 允许请求的 tag(需要关掉上一条这个才生效)
 const testmailNamespace = "xxxxx"; // testmail 的 namespace
 const testmailToken = "xxxxxxxxxxxxxxx"; // testmail 的 api key
 const deployUrl = "https://xxx.xxx.workers.dev/"; // 要部署到的 workers 的域名

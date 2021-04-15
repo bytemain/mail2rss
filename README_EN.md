@@ -1,7 +1,7 @@
 # mail2rss
 
 ___
-0 cost practice to convert newsletter to RSS.
+zero cost practice for converting newsletter to RSS.
 using [cloudflare workers](https://workers.cloudflare.com/) and [testmail.app](https://testmail.app/)。
 
 cloudflare workers has 100,000 free requests per day。  
@@ -15,7 +15,7 @@ copy the content of [mailrss.js](mail2rss.js) into cloudflare workers，and just
 
 ```js
 const allowAnyTag = true; // allow any tag
-const allowedTags = ["quartz"]; // allowed tags
+const allowedTags = ["quartz"]; // allowed tags(Mutually exclusive with the previous line)
 const testmailNamespace = "xxxxx"; // testmail's namespace
 const testmailToken = "xxxxxxxxxxxxxxx"; // testmail's api key
 const deployUrl = "https://xxx.xxx.workers.dev/"; // deployed workers domain
