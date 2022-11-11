@@ -1,8 +1,10 @@
-const allowAnyTag = true;
-const allowedTags = ["quartz"];
-const testmailNamespace = "xxxxx";
-const testmailToken = "xxxxxxxxxxxxxxx";
-const deployUrl = "https://xxx.xxx.workers.dev/";
+const allowAnyTag = ALLOW_ANY_TAG;
+if (!allowAnyTag) {
+  const allowedTags = ALLOWED_TAGS;
+}
+const testmailNamespace = TESTMAIL_NAMESPACE;
+const testmailToken = TESTMAIL_API_KEY;
+const deployUrl = DEPLOY_URL;
 
 class TestMail {
   static testmailApi = "https://api.testmail.app/api/graphql";
@@ -18,6 +20,7 @@ class TestMail {
           id
           subject
           html
+          text
           from
           timestamp
           downloadUrl
@@ -109,7 +112,9 @@ async function makeRss(emails, tag) {
     }
     return `<item>
     <title><![CDATA[${value.subject}]]></title>
-    <description><![CDATA[${value.html}]]></description>
+    <description><![CDATA[${
+      value.html ? value.html : value.text
+    }]]></description>
     <pubDate>${new Date(value.timestamp).toGMTString()}</pubDate>
     <guid isPermaLink="false">${value.id}</guid>
     <link>${value.downloadUrl}</link>
@@ -120,12 +125,12 @@ async function makeRss(emails, tag) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title><![CDATA[${tag}邮件订阅]]></title>
+        <title><![CDATA[${tag}]]></title>
         <link>${deployUrl + tag}</link>
         <atom:link href="${
           deployUrl + tag
         }" rel="self" type="application/rss+xml" />
-        <description><![CDATA[${tag}邮件订阅]]></description>
+        <description><![CDATA[${tag}]]></description>
         <generator>mail2rss</generator>
         <webMaster>lengthmin@gmail.com (Artin)</webMaster>
         <language>zh-cn</language>
