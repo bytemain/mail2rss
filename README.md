@@ -1,6 +1,6 @@
 # mail2rss
 
-## English documentation [here](README_EN.md).
+## [English documentation here](README_EN.md).
 
 ---
 
@@ -15,7 +15,8 @@ testmail.app 免费版每个月可以接收 100 封邮件，邮件可以保存�
 ## 如何使用
 
 将 [mailrss.js](mail2rss.js) 的内容复制到 cloudflare workers 的代码中，填好前面几行的内容，部署即可。
-[Check how to define environment variables in cloudflare workers](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)
+
+[查看如何在 Cloudflare Workers 中定义环境变量](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)
 
 ```js
 ALLOW_ANY_TAG = true; // 允许任意的 tag
