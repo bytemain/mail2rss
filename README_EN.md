@@ -1,7 +1,5 @@
 # mail2rss
 
----
-
 zero cost method for converting newsletter to RSS.
 using [cloudflare workers](https://workers.cloudflare.com/) and [testmail.app](https://testmail.app/).
 
