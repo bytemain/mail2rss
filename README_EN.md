@@ -26,11 +26,8 @@ After signing in，you can get your `namespace` and `api keys` at <https://testm
 When you already have your testmail credentials copy the content of [mailrss.js](mail2rss.js) into a new cloudflare worker and define the environment variables in settings. [Check how to define environment variables in cloudflare workers](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)
 
 ```js
-ALLOW_ANY_TAG = true; // allow query for any tag
-ALLOWED_TAGS = ["quartz"]; // allowed tags (Mutually exclusive with the previous line - optional to define)
 TESTMAIL_NAMESPACE = "xxxxx"; // testmail's namespace
 TESTMAIL_API_KEY = "xxxxxxxxxxxxxxx"; // testmail's api key - it's recommended to use encryption for this field
-DEPLOY_URL = "https://xxx.xxx.workers.dev/"; // deployed workers domain
 ```
 
 After you deploy to workers，you can use `{namespace}.{tag}@inbox.testmail.app` to subscribe to a newsletter，and subscibe to `https://xxx.xxx.workers.dev/{tag}` in your rss reader.

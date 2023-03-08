@@ -19,11 +19,8 @@ testmail.app 免费版每个月可以接收 100 封邮件，邮件可以保存�
 [查看如何在 Cloudflare Workers 中定义环境变量](https://developers.cloudflare.com/workers/platform/environment-variables/#environment-variables-via-the-dashboard)
 
 ```js
-ALLOW_ANY_TAG = true; // 允许任意的 tag
-ALLOWED_TAGS = ["quartz"]; // 允许请求的 tag(需要关掉上一条这个才生效)
 TESTMAIL_NAMESPACE = "xxxxx"; // testmail 的 namespace
 TESTMAIL_API_KEY = "xxxxxxxxxxxxxxx"; // testmail 的 api key
-DEPLOY_URL = "https://xxx.xxx.workers.dev/"; // 要部署到的 workers 的域名
 ```
 
 deploy 到 workers 之后，你可以用 `{namespace}.{tag}@inbox.testmail.app` 去订阅邮件，然后订阅 `https://xxx.xxx.workers.dev/{tag}` 就可以啦。

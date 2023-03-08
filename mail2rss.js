@@ -1,6 +1,5 @@
 const testmailNamespace = TESTMAIL_NAMESPACE;
 const testmailToken = TESTMAIL_API_KEY;
-const deployUrl = DEPLOY_URL;
 
 class TestMail {
   static testmailApi = 'https://api.testmail.app/api/graphql';
@@ -57,10 +56,11 @@ addEventListener('fetch', (event) => {
 async function handleRequest(event) {
   const { request } = event;
   let url = new URL(request.url);
+  const origin = `${url.origin}/`;
   // parse tag
   const requestTag = url.pathname.substring(1);
   if (!requestTag) {
-    return new Response(index(), {
+    return new Response(generateHTML(origin), {
       headers: {
         'content-type': 'text/html',
       },
@@ -72,7 +72,7 @@ async function handleRequest(event) {
     return new Response('Internal Server Error.', { status: 500 });
   }
   let data = await gatherResponse(mailResponse);
-  let responseXML = await makeRss(data.data.inbox.emails, requestTag);
+  let responseXML = await makeRss(data.data.inbox.emails, requestTag, origin);
   response = new Response(responseXML, {
     status: 200,
     headers: {
@@ -102,7 +102,7 @@ async function gatherResponse(response) {
   }
 }
 
-function index() {
+function generateHTML(origin) {
   return `
 <!DOCTYPE html>
 <html>
@@ -227,7 +227,7 @@ function index() {
         var tag = tagInput.value.trim();
         emailResult.value =
           '${testmailNamespace}.' + tag + '@inbox.testmail.app';
-        rssResult.value = '${deployUrl}' + tag;
+        rssResult.value = '${origin}' + tag;
       });
       function showTooltip(message) {
         tooltipText.innerHTML = message;
@@ -243,7 +243,7 @@ function index() {
 `;
 }
 
-async function makeRss(emails, tag) {
+async function makeRss(emails, tag, origin) {
   let items = emails.map((value) => {
     if (value.attachments.length > 0) {
       for (let i of value.attachments) {
@@ -262,15 +262,13 @@ async function makeRss(emails, tag) {
     <author><![CDATA[${value.from}]]></author>
 </item>`;
   });
-
+  const href = origin + tag;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title><![CDATA[${tag}]]></title>
-        <link>${deployUrl + tag}</link>
-        <atom:link href="${
-          deployUrl + tag
-        }" rel="self" type="application/rss+xml" />
+        <link>${href}</link>
+        <atom:link href="${href}" rel="self" type="application/rss+xml" />
         <description><![CDATA[${tag}]]></description>
         <generator>mail2rss</generator>
         <webMaster>lengthmin@gmail.com (Artin)</webMaster>
