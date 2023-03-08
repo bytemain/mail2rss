@@ -36,4 +36,6 @@ Subscribing to `https://xxx.xxx.workers.dev/` will result in an empty feed as no
 
 Suppose my namespace is diyyy，then I can use `diyyy.quartz@inbox.testmail.app` to subscribe _Quartz_'s newsletter，then subscibe to `https://xxx.xxx.workers.dev/quartz`.
 
-if you want use allowedlist mode, you need to set `ALLOW_ANY_TAG` to `false`，and add the allowed tags to the (`ALLOWED_TAGS`) environment variable
+![simple homepage](https://user-images.githubusercontent.com/13938334/223634470-7dd2e8d6-ebdc-466a-9e6b-c9d3754beb33.png)
+
+You can visit your deployment domain then quickly generate the two addresses.

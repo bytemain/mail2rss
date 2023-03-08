@@ -27,7 +27,9 @@ deploy 到 workers 之后，你可以用 `{namespace}.{tag}@inbox.testmail.app` 
 
 假如我的 namespace 是 diyyy，那我就可以用 `diyyy.quartz@inbox.testmail.app` 这个邮箱来订阅 Quartz，然后订阅 `https://xxx.xxx.workers.dev/quartz` 即可。
 
-如果你希望设置一个 tag 白名单，那就设置 `ALLOW_ANY_TAG` 为 `false`，将需要的 tag 添加到第二行 `ALLOWED_TAGS` 里。
+![simple homepage](https://user-images.githubusercontent.com/13938334/223634941-cb2ca52e-641a-4e06-b0d3-c675e5880b2e.png)
+
+可以访问你部署的域名快速生成这两个地址。
 
 ## 注册 testmail.app
 

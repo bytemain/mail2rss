@@ -194,7 +194,7 @@ function generateHTML(origin) {
     <label for="tag-input">Please enter a tag:</label>
     <input type="text" id="tag-input" />
     <div class="email">
-      <label for="email-result">Gmail address:</label>
+      <label for="email-result">email address:</label>
       <input type="text" id="email-result" readonly />
       <button class="copy-btn" onclick="copyToClipboard('email-result')">
         Copy
@@ -270,8 +270,8 @@ async function makeRss(emails, tag, origin) {
         <link>${href}</link>
         <atom:link href="${href}" rel="self" type="application/rss+xml" />
         <description><![CDATA[${tag}]]></description>
-        <generator>mail2rss</generator>
-        <webMaster>lengthmin@gmail.com (Artin)</webMaster>
+        <generator>github.com/bytemain/mail2rss</generator>
+        <webMaster>artin@cat.ms (Artin)</webMaster>
         <language>zh-cn</language>
         <lastBuildDate>${new Date().toGMTString()}</lastBuildDate>
         <ttl>300</ttl>
