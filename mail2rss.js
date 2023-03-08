@@ -1,13 +1,9 @@
-const allowAnyTag = ALLOW_ANY_TAG;
-if (!allowAnyTag) {
-  const allowedTags = ALLOWED_TAGS;
-}
 const testmailNamespace = TESTMAIL_NAMESPACE;
 const testmailToken = TESTMAIL_API_KEY;
 const deployUrl = DEPLOY_URL;
 
 class TestMail {
-  static testmailApi = "https://api.testmail.app/api/graphql";
+  static testmailApi = 'https://api.testmail.app/api/graphql';
 
   static async getMails(tag) {
     const query = `{
@@ -33,11 +29,11 @@ class TestMail {
     }`;
 
     const init = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        'content-type': 'application/json;charset=UTF-8',
         Authorization: `Bearer ${testmailToken}`,
-        Accept: "application/json",
+        Accept: 'application/json',
       },
 
       body: JSON.stringify({
@@ -50,7 +46,7 @@ class TestMail {
   }
 }
 
-addEventListener("fetch", (event) => {
+addEventListener('fetch', (event) => {
   event.respondWith(handleRequest(event));
 });
 
@@ -63,23 +59,27 @@ async function handleRequest(event) {
   let url = new URL(request.url);
   // parse tag
   const requestTag = url.pathname.substring(1);
-  if (!allowAnyTag && !allowedTags.includes(requestTag)) {
-    return new Response("Unknown tag.", { status: 403 });
+  if (!requestTag) {
+    return new Response(index(), {
+      headers: {
+        'content-type': 'text/html',
+      },
+    });
   }
 
   let mailResponse = await TestMail.getMails(requestTag);
   if (mailResponse.status != 200) {
-    return new Response("Internal Server Error.", { status: 500 });
+    return new Response('Internal Server Error.', { status: 500 });
   }
   let data = await gatherResponse(mailResponse);
   let responseXML = await makeRss(data.data.inbox.emails, requestTag);
   response = new Response(responseXML, {
     status: 200,
     headers: {
-      "content-type": "application/xml; charset=utf-8",
+      'content-type': 'application/xml; charset=utf-8',
     },
   });
-  response.headers.append("Cache-Control", "max-age=600");
+  response.headers.append('Cache-Control', 'max-age=600');
   return response;
 }
 
@@ -90,16 +90,157 @@ async function handleRequest(event) {
  */
 async function gatherResponse(response) {
   const { headers } = response;
-  const contentType = headers.get("content-type");
-  if (contentType.includes("application/json")) {
+  const contentType = headers.get('content-type');
+  if (contentType.includes('application/json')) {
     return await response.json();
-  } else if (contentType.includes("application/text")) {
+  } else if (contentType.includes('application/text')) {
     return await response.text();
-  } else if (contentType.includes("text/html")) {
+  } else if (contentType.includes('text/html')) {
     return await response.text();
   } else {
     return await response.text();
   }
+}
+
+function index() {
+  return `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Email Address Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: 50px;
+      }
+
+      label {
+        display: block;
+        margin-top: 30px;
+      }
+
+      input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 300px;
+        margin-bottom: 20px;
+      }
+
+      .email {
+        margin-top: 30px;
+      }
+
+      .email input {
+        display: inline-block;
+        width: 500px;
+        margin-right: 20px;
+        border: none;
+      }
+
+      .copy-btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      .copy-btn:hover {
+        background-color: #3e8e41;
+      }
+
+      .copy-btn:active {
+        background-color: #4caf50;
+        transform: translateY(2px);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .tooltip {
+        position: fixed;
+        visibility: hidden;
+        top: calc(50% - 50px);
+        left: calc(50% - 150px);
+        padding: 5px 10px;
+        font-size: 16px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border-radius: 5px;
+        z-index: 9999;
+      }
+      .tooltip.show {
+        visibility: visible;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tooltip" id="tooltip">
+      <span id="tooltip-text"></span>
+    </div>
+
+    <h1>Email Address Generator</h1>
+    <label for="tag-input">Please enter a tag:</label>
+    <input type="text" id="tag-input" />
+    <div class="email">
+      <label for="email-result">Gmail address:</label>
+      <input type="text" id="email-result" readonly />
+      <button class="copy-btn" onclick="copyToClipboard('email-result')">
+        Copy
+      </button>
+    </div>
+    <div class="email">
+      <label for="rss-result">Subscribe address:</label>
+      <input type="text" id="rss-result" readonly />
+      <button class="copy-btn" onclick="copyToClipboard('rss-result')">
+        Copy
+      </button>
+    </div>
+    <script>
+      function copyToClipboard(id) {
+        var copyText = document.getElementById(id);
+        copyText.select();
+        document.execCommand('copy');
+
+        showTooltip('Copied to clipboard');
+      }
+
+      var tagInput = document.getElementById('tag-input');
+      var emailResult = document.getElementById('email-result');
+      var rssResult = document.getElementById('rss-result');
+      const tooltip = document.getElementById('tooltip');
+      const tooltipText = document.getElementById('tooltip-text');
+      const copyBtn = document.getElementById('copy');
+
+      tagInput.addEventListener('input', function () {
+        var tag = tagInput.value.trim();
+        emailResult.value =
+          '${testmailNamespace}.' + tag + '@inbox.testmail.app';
+        rssResult.value = '${deployUrl}' + tag;
+      });
+      function showTooltip(message) {
+        tooltipText.innerHTML = message;
+        tooltip.classList.add('show');
+
+        setTimeout(() => {
+          tooltip.classList.remove('show');
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
+`;
 }
 
 async function makeRss(emails, tag) {
@@ -136,7 +277,7 @@ async function makeRss(emails, tag) {
         <language>zh-cn</language>
         <lastBuildDate>${new Date().toGMTString()}</lastBuildDate>
         <ttl>300</ttl>
-        ${items.join("\n")}
+        ${items.join('\n')}
     </channel>
 </rss>`;
 }
