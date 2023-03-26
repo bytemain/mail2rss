@@ -67,6 +67,14 @@ async function handleRequest(event) {
     });
   }
 
+  if (requestTag === 'robots.txt') {
+    return new Response('User-agent: *\nDisallow: /', {
+      headers: {
+        'content-type': 'text/plain',
+      },
+    });
+  }
+
   let mailResponse = await TestMail.getMails(requestTag);
   if (mailResponse.status != 200) {
     return new Response('Internal Server Error.', { status: 500 });
